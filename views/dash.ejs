@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">IR</a> 
+            <form class="d-flex" method="post" action="/docs/search">
+                <input class="form-control me-2" name="search" type="search" 
+                <% if(search=="") {%> 
+                placeholder="Search"
+                <% } %>
+                <% if(search!=""){ %> 
+                    placeholder="<%= search %>"
+                    value="<%= search %>"
+                    <% } %> 
+                 aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+             </form>
+          </div>
+        </div>
+    <div class="container-sm">    
+        <% if(data.length == 0){ %>
+            <blockquote class="blockquote">
+                <p>nothing </p>
+              </blockquote>
+        <% } %>
+
+        <% if(data.length >0){ %> 
+            <% counter=1 %> 
+            <% for(i in data){ %> 
+            <div class="row align-items-start">
+                
+                    <div class="card border-success mb-3" style="max-width: 80%;">
+                        <div class="card-header bg-transparent border-success"><%= counter  %></div>
+                        <div class="card-body text-success">
+                         <!-- <h5 class="card-title">Success card title</h5>-->
+                          <p class="card-text"><%= data[i]["text"]  %> </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-success"><%= parseInt(data[i]["similarity"]*10000)/100 %>%</div>
+                      </div>
+              
+            </div>
+            <% counter++ %> 
+            <% if(counter == 11){ %>
+                <% break; %> 
+            <% } %>     
+            <% } %> 
+        <% } %>     
+    </div>
+
+</body>
+</html>
